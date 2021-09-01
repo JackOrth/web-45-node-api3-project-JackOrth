@@ -59,15 +59,20 @@ router.get('/:id/posts', validateUserId, async (req, res, next) => {
 });
 
 
-router.post('/:id/posts', validateUserId, validatePost, (req, res, next) => {
-  Post.insert({
+router.post(
+  '/:id/posts', 
+  validateUserId, 
+  validatePost, 
+  async (req, res, next) => {
+  try{
+    const result = await Post.insert({
       user_id: req.params.id,
-      text: req.text,
+      text: req.text
     })
-    .then(newPost => {
-      res.status(201).json(newPost)
-    })
-    .catch(next)
+    res.status(201).json(result)
+  }catch(err) {
+    next(err)
+  }
 });
 
 router.use((err, req, res, ) =>{ 

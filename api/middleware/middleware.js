@@ -46,7 +46,7 @@ function validatePost(req, res, next) {
       message:"missing required text field"
     })
   }else{
-    req.name = text.trim()
+    req.text = text.trim()
     next()
   }
 }
